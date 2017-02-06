@@ -7,7 +7,7 @@ data "template_file" "user_data" {
 
   vars {
     ephemeral_disk_device = "${var.ephemeral_disk_device}"
-    cassandra_seed_ips = "${var.cassandra_seed_ips}"
+    cassandra_seed_ips = "${join("j", var.cassandra_seed_ips)}"
     cassandra_cluster_name = "${var.cassandra_cluster_name}"
     private_ip = "${element(var.cassandra_seed_ips, count.index)}"
     node_index = "${count.index}"
