@@ -2,7 +2,7 @@
 # This module creates all resources necessary for Cassandra
 #--------------------------------------------------------------
 data "template_file" "user_data" {
-  count    = "${length(var.private_subnet_ids)}"
+  count    = "${var.number_of_seeds}"
   template = "${file("${path.module}/cassandra.sh.tpl")}"
 
   vars {
@@ -20,7 +20,7 @@ resource "aws_key_pair" "cassandra" {
 }
 
 resource "aws_instance" "cassandra" {
-  count = "${length(var.private_subnet_ids)}"
+  count = "${var.number_of_seeds}"
   instance_type = "${var.instance_type}"
   ami = "${data.aws_ami.ubuntu.id}"
   key_name = "${aws_key_pair.cassandra.key_name}"

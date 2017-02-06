@@ -1,3 +1,4 @@
+variable number_of_seeds { }
 variable private_subnet_ids { type = "list" }
 variable cassandra_seed_ips { type = "list" }
 variable instance_type { }
