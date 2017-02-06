@@ -16,6 +16,7 @@ data "template_file" "user_data" {
 
 resource "aws_key_pair" "cassandra" {
   public_key = "${var.ssh_public_key}"
+  key_name = "cassandra_ssh_key"
 }
 
 resource "aws_instance" "cassandra" {
