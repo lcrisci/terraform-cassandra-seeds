@@ -1,5 +1,5 @@
-variable private_subnet_ids { }
-variable cassandra_seed_ips { }
+variable private_subnet_ids { type = "list" }
+variable cassandra_seed_ips { type = "list" }
 variable instance_type { }
 variable ssh_public_key { }
 variable vpc_id { }

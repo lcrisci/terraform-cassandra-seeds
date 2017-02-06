@@ -13,10 +13,10 @@ To consume this module, simply insert a block of code like this into your Terraf
     module "cassandra_seeds" {
       source = "github.com/devop5/terraform-cassadra-seeds"
       cassandra_cluster_name = "My Cassandra Cluster"
-      cassandra_seed_ips = "10.69.67.128,10.69.68.128,10.69.69.128"
+      cassandra_seed_ips = ["10.69.67.128", "10.69.68.128" , "10.69.69.128"]
       ephemeral_disk_device = "/dev/xvdh"
       instance_type = "m3.medium"
-      private_subnet_ids = "subnet-1234abcd,subnet-9876fedc"
+      private_subnet_ids = ["subnet-1234abcd", "subnet-5678ghij", "subnet-9876fedc"]
       ssh_public_key = "${file("./public_key.pub")}"
       vpc_id = "vpc-1234abcd"
       vpc_cidr = "10.69.0.0/16"

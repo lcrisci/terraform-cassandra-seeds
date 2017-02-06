@@ -2,14 +2,14 @@
 # This module creates all resources necessary for Cassandra
 #--------------------------------------------------------------
 data "template_file" "user_data" {
-  count    = "${length(split(",", var.private_subnet_ids))}"
+  count    = "${length(var.private_subnet_ids)}"
   template = "${file("${path.module}/cassandra.sh.tpl")}"
 
   vars {
     ephemeral_disk_device = "${var.ephemeral_disk_device}"
     cassandra_seed_ips = "${var.cassandra_seed_ips}"
     cassandra_cluster_name = "${var.cassandra_cluster_name}"
-    private_ip = "${element(split(",", var.cassandra_seed_ips), count.index)}"
+    private_ip = "${element(var.cassandra_seed_ips, count.index)}"
     node_index = "${count.index}"
   }
 }
@@ -19,12 +19,12 @@ resource "aws_key_pair" "cassandra" {
 }
 
 resource "aws_instance" "cassandra" {
-  count = "${length(split(",", var.private_subnet_ids))}"
+  count = "${length(var.private_subnet_ids)}"
   instance_type = "${var.instance_type}"
   ami = "${data.aws_ami.ubuntu.id}"
   key_name = "${aws_key_pair.cassandra.key_name}"
-  private_ip = "${element(split(",", var.cassandra_seed_ips), count.index)}"
-  subnet_id = "${element(split(",", var.private_subnet_ids), count.index)}"
+  private_ip = "${element(var.cassandra_seed_ips, count.index)}"
+  subnet_id = "${element(var.private_subnet_ids, count.index)}"
   user_data = "${element(data.template_file.user_data.*.rendered, count.index)}"
   vpc_security_group_ids = [
     "${module.cassandra_security_group.security_group_id}",
