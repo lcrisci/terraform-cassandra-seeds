@@ -17,7 +17,7 @@ To consume this module, simply insert a block of code like this into your Terraf
       ephemeral_disk_device = "/dev/xvdh"
       instance_type = "m3.medium"
       private_subnet_ids = "subnet-1234abcd,subnet-9876fedc"
-      ssh_key_name = "my_ssh_key"
+      ssh_public_key = "${file("./public_key.pub")}"
       vpc_id = "vpc-1234abcd"
       vpc_cidr = "10.69.0.0/16"
     }

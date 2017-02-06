@@ -14,11 +14,15 @@ data "template_file" "user_data" {
   }
 }
 
+resource "aws_key_pair" "cassandra" {
+  public_key = "${var.ssh_public_key}"
+}
+
 resource "aws_instance" "cassandra" {
   count = "${length(split(",", var.private_subnet_ids))}"
   instance_type = "${var.instance_type}"
   ami = "${data.aws_ami.ubuntu.id}"
-  key_name = "${var.ssh_key_name}"
+  key_name = "${aws_key_pair.cassandra.key_name}"
   private_ip = "${element(split(",", var.cassandra_seed_ips), count.index)}"
   subnet_id = "${element(split(",", var.private_subnet_ids), count.index)}"
   user_data = "${element(data.template_file.user_data.*.rendered, count.index)}"
