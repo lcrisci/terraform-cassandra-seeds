@@ -2,7 +2,7 @@ module "cassandra_security_group" {
   source = "github.com/terraform-community-modules/tf_aws_sg//sg_cassandra"
   security_group_name = "security-group-cassandra"
   vpc_id = "${var.vpc_id}"
-  source_cidr_block = "${var.vpc_cidr}"
+  source_cidr_block = ["${var.vpc_cidr}"]
 }
 
 resource "aws_security_group" "allow_internet_access" {
