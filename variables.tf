@@ -7,3 +7,4 @@ variable vpc_id { }
 variable vpc_cidr { }
 variable ephemeral_disk_device { default = "/dev/xvdh" }
 variable cassandra_cluster_name { }
+variable depends_id { }
