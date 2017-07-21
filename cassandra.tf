@@ -39,5 +39,6 @@ resource "aws_instance" "cassandra" {
 
   tags {
     Name = "cassandra_seed_${count.index}"
+    Depends_id = "${var.depends_id}"
   }
 }
